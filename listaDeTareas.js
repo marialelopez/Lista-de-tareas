@@ -6,8 +6,8 @@ let readlineSync = require("readline-sync");
 let tareas = [];
 
 function agregarTarea() {
-  let indicador = readlineSync.question("Ingrese el indicador de la tarea");
-  let descripcion = readlineSync.question("Ingrese la descripcion de la tarea");
+  let indicador = readlineSync.question("Ingrese el indicador de la tarea: ");
+  let descripcion = readlineSync.question("Ingrese la descripcion de la tarea: ");
 
   tareas.push({
     indicador,
@@ -20,7 +20,7 @@ function agregarTarea() {
 
 function eliminarTarea() {
   let indice = readlineSync.question(
-    "Ingrese el indice de la tarea a eliminar"
+    "Ingrese el indice de la tarea a eliminar: "
   );
 
   if (indice >= 0 && indice < tareas.length) {
@@ -32,7 +32,7 @@ function eliminarTarea() {
 }
 function completarTarea() {
   let indice = readlineSync.question(
-    "Ingrese el indice de la tarea a completar"
+    "Ingrese el indice de la tarea a completar: "
   );
 
   if (indice >= 0 && indice < tareas.length) {
