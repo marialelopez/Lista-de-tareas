@@ -56,51 +56,47 @@ function imprimirTarea() {
   });
 }
 
-async function correrPrograma() {
+// Usando el metodo then()
+function correrPrograma() {
   while (true) {
     console.log("Elige una opcion");
-    console.log("                ");
     console.log("1. Agregar una tarea");
     console.log("2. Eliminar una tarea");
     console.log("3. Completar una tarea");
     console.log("4. Imprimir lista de tareas");
     console.log("5. Salir");
-    console.log("                           ");
-    console.log("                           ");
-    console.log("Creada por Alejandra Lopez <3");
-    console.log("                           ");
 
     let opcion = readlineSync.question("Ingrese la opcion que requiera: ");
 
     switch (opcion) {
       case "1":
-        try {
-          const mensaje = await agregarTarea();
-          console.log(mensaje);
-        } catch (error) {
-          console.error("Error:", error);
-        }
-
+        agregarTarea()
+          .then((TareaAgregada) => {
+            console.log(TareaAgregada);
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
         break;
 
       case "2":
         eliminarTarea()
-        .then((mensaje) => {
-          console.log(mensaje);
-        })
-        .catch((error) => {
-          console.error("Error:", error);
-        });
+          .then((TareaEliminada) => {
+            console.log(TareaEliminada);
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
         break;
 
       case "3":
         completarTarea()
-        .then((mensaje) => {
-          console.log(mensaje);
-        })
-        .catch((error) => {
-          console.error("Error:", error);
-        });
+          .then((TareaCompletada) => {
+            console.log(TareaCompletada);
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
         break;
 
       case "4":
@@ -109,6 +105,7 @@ async function correrPrograma() {
 
       case "5":
         return;
+
       default:
         console.log("Opcion invalida!!");
     }
@@ -116,3 +113,52 @@ async function correrPrograma() {
 }
 
 correrPrograma();
+
+
+//Usando async y await 
+// async function correrPrograma() {
+//   while (true) {
+//     console.log("Elige una opcion");
+//     console.log("                ");
+//     console.log("1. Agregar una tarea");
+//     console.log("2. Eliminar una tarea");
+//     console.log("3. Completar una tarea");
+//     console.log("4. Imprimir lista de tareas");
+//     console.log("5. Salir");
+//     console.log("                           ");
+//     console.log("                           ");
+//     console.log("Creada por Alejandra Lopez <3");
+//     console.log("                           ");
+
+//     let opcion = readlineSync.question("Ingrese la opcion que requiera: ");
+
+//     switch (opcion) {
+//       case "1":
+//         await agregarTarea();
+//         console.log("La tarea fue agregada exitosamente");
+//         break;
+
+//       case "2":
+//         await eliminarTarea();
+//         console.log("La tarea fue eliminada exitosamente");
+//         break;
+
+//       case "3":
+//         await completarTarea();
+//         console.log("La tarea se completo exitosamente");
+//         break;
+
+//       case "4":
+//         imprimirTarea();
+//         break;
+
+//       case "5":
+//         return;
+
+//       default:
+//         console.log("Opcion invalida!!");
+//     }
+//   }
+// }
+
+// correrPrograma();
