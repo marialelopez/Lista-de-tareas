@@ -6,6 +6,7 @@ let readlineSync = require("readline-sync");
 let tareas = [];
 
 function agregarTarea() {
+  return new Promise((resolve, reject)=>{
   let indicador = readlineSync.question("Ingrese el indicador de la tarea: ");
   let descripcion = readlineSync.question("Ingrese la descripcion de la tarea: ");
 
@@ -15,32 +16,36 @@ function agregarTarea() {
     completed: false,
   });
 
-  console.log("Se agrego la tarea exitosamente");
+  resolve("Se agrego la tarea exitosamente");
+});
 }
 
 function eliminarTarea() {
-  let indice = readlineSync.question(
-    "Ingrese el indice de la tarea a eliminar: "
+  return new Promise((resolve, reject) =>{
+  let indice = readlineSync.question("Ingrese el indice de la tarea a eliminar: "
   );
 
   if (indice >= 0 && indice < tareas.length) {
     tareas.splice(indice, 1);
-    console.log("Tarea eliminada exitosamente");
+    resolve("Tarea eliminada exitosamente");
   } else {
-    console.log("Indice invalido!!");
+    reject("Indice invalido!!");
   }
+});
 }
 function completarTarea() {
+  return new Promise((resolve,reject) =>{
   let indice = readlineSync.question(
     "Ingrese el indice de la tarea a completar: "
   );
 
   if (indice >= 0 && indice < tareas.length) {
     tareas[indice].completed = true;
-    console.log("Tarea completada exitosamente");
+    resolve("Tarea completada exitosamente");
   } else {
-    console.log("Indice invalido!!");
+    reject("Indice invalido!!");
   }
+});
 }
 
 function imprimirTarea() {
@@ -51,7 +56,7 @@ function imprimirTarea() {
   });
 }
 
-function correrPrograma() {
+async function correrPrograma() {
   while (true) {
     console.log("Elige una opcion");
     console.log("                ");
@@ -69,15 +74,33 @@ function correrPrograma() {
 
     switch (opcion) {
       case "1":
-        agregarTarea();
+        try {
+          const mensaje = await agregarTarea();
+          console.log(mensaje);
+        } catch (error) {
+          console.error("Error:", error);
+        }
+
         break;
 
       case "2":
-        eliminarTarea();
+        eliminarTarea()
+        .then((mensaje) => {
+          console.log(mensaje);
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
         break;
 
       case "3":
-        completarTarea();
+        completarTarea()
+        .then((mensaje) => {
+          console.log(mensaje);
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
         break;
 
       case "4":
